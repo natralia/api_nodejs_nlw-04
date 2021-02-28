@@ -1,15 +1,15 @@
 import "reflect-metadata"
-import express, { NextFunction, Request, Response } from "express";
-import "express-async-errors";
-import createConnection from "./database";
-import { router } from "./routes";
-import { AppError } from "./errors/AppErrors";
+import express, { NextFunction, Request, Response } from "express"
+import "express-async-errors"
+import createConnection from "./database"
+import { router } from "./routes"
+import { AppError } from "./errors/AppErrors"
 
-createConnection();
-const app = express();
+createConnection()
+const app = express()
 
-app.use(express.json());
-app.use(router);
+app.use(express.json())
+app.use(router)
 
 app.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
     if (err instanceof AppError) {
@@ -24,4 +24,4 @@ app.use((err: Error, request: Request, response: Response, _next: NextFunction) 
     })
 })
 
-export { app };
+export { app }

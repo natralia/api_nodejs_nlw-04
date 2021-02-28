@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { UsersRepository } from "../Repositories/UsersRepository";
-import * as yup from "yup";
-import { AppError } from "../errors/AppErrors";
+import { Request, Response } from "express"
+import { getCustomRepository } from "typeorm"
+import { UsersRepository } from "../Repositories/UsersRepository"
+import * as yup from "yup"
+import { AppError } from "../errors/AppErrors"
 
 class UserController {
     async create(request: Request, response: Response) {
-        const { name, email } = request.body;
+        const { name, email } = request.body
 
         const schema = yup.object().shape({
             name: yup.string().required(),
@@ -17,12 +17,12 @@ class UserController {
             throw new AppError("Name or email is invalid!")
         }
 
-        const userRepository = getCustomRepository(UsersRepository);
+        const userRepository = getCustomRepository(UsersRepository)
 
 
         const userAlreadyExists = await userRepository.findOne({
             email
-        });
+        })
 
         if (userAlreadyExists) {
             throw new AppError("User already exists!")
@@ -31,10 +31,10 @@ class UserController {
             name, email
         })
 
-        await userRepository.save(user);
+        await userRepository.save(user)
 
-        return response.status(201).json(user);
+        return response.status(201).json(user)
     }
 }
 
-export { UserController };
+export { UserController }

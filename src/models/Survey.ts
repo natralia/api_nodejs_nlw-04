@@ -1,20 +1,20 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm"
 import { v4 as uuid } from "uuid"
 
 @Entity("surveys")
 
 class Survey {
     @PrimaryColumn()
-    readonly id: string;
+    readonly id: string
 
     @Column()
-    title: string;
+    title: string
 
     @Column()
-    description: string;
+    description: string
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at: Date
 
     constructor() {
         if (!this.id) {

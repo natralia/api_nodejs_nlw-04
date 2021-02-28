@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { AppError } from "../errors/AppErrors";
-import { SurveysUsersRepository } from "../Repositories/SurveysUsersRepository";
-import * as yup from "yup";
+import { Request, Response } from "express"
+import { getCustomRepository } from "typeorm"
+import { AppError } from "../errors/AppErrors"
+import { SurveysUsersRepository } from "../Repositories/SurveysUsersRepository"
+import * as yup from "yup"
 
 class AnswerController {
 
@@ -20,21 +20,21 @@ class AnswerController {
             const { value } = await paramsSchema.validate(request.params)
             const { u } = await querySchema.validate(request.query)
     
-            const surveysUsersRepository = getCustomRepository(SurveysUsersRepository);
+            const surveysUsersRepository = getCustomRepository(SurveysUsersRepository)
             const surveyUser = await surveysUsersRepository.findOne({
                 id: String(u)
-            });
+            })
     
             if (!surveyUser) {
                 throw new AppError("Survey User does not exists!")
     
             }
     
-            surveyUser.value = Number(value);
+            surveyUser.value = Number(value)
     
-            await surveysUsersRepository.save(surveyUser);
+            await surveysUsersRepository.save(surveyUser)
     
-            return response.json(surveyUser);
+            return response.json(surveyUser)
         } catch (err) {
             return response.status(400).json({ error: err.message })
         }
